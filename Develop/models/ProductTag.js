@@ -14,7 +14,7 @@ ProductTag.init(
       },
       product_id: {
          references: {
-            mdoel: "product",
+            model: "product",
             key: "id",
          },
       },

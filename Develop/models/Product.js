@@ -17,7 +17,6 @@ Product.init(
       },
       product_name: {
          type: DataTypes.STRING,
-         primaryKey: false,
          allowNull: false,
          autoIncrement: false,
       },
@@ -35,12 +34,12 @@ Product.init(
             isNumeric: true,
          },
       },
-      // category_id: {
-      //    references: {
-      //       model: "category",
-      //       key: "id",
-      //    },
-      // },
+      category_id: {
+         references: {
+            model: "category",
+            key: "id",
+         },
+      },
    },
    {
       sequelize,
