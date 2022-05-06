@@ -8,21 +8,22 @@ router.get("/", (req, res) => {
    // find all products
    Product.findAll({
       // be sure to include its associated Category and Tag data
-      attributes: ["id", "category_name"],
+      attributes: ["id", "product_name", "price", "stock", "category_id"],
       include: [
          {
             model: Category,
-            attributes: ["id", "product_name", "price", "stock", "category_id"],
+            attributes: ["id", "category_name"],
          },
-         {
-            model: Tag,
-            attributes: ["id", "tag_name"],
-         },
+         // {
+         //    model: Tag,
+         //    attributes: ["id", "tag_name"],
+         // },
       ],
    })
       .then((dbProductData) => res.json(dbProductData))
       .catch((err) => {
          console.log(err);
+         // server error response
          res.status(500).json(err);
       });
 });
@@ -48,6 +49,7 @@ router.get("/:id", (req, res) => {
       ],
    }).then((dbProductData) => {
       if (!dbProductData) {
+         // client error response
          res.status(404).json({
             message: "This Product does not match any id!",
          });
@@ -77,7 +79,7 @@ router.post("/", (req, res) => {
             });
             return ProductTag.bulkCreate(productTagIdArr);
          }
-         // if no product tags, just respond
+         // success
          res.status(200).json(product);
       })
       .then((productTagIds) => res.status(200).json(productTagIds))
