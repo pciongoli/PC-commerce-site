@@ -77,6 +77,7 @@ router.put("/:id", (req, res) => {
          id: req.params.id,
       },
    })
+      // client err
       .then((dbTagData) => {
          if (!dbTagData[0]) {
             res.status(404).json({
@@ -94,6 +95,26 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
    // delete on tag by its `id` value
+   Tag.destroy({
+      where: {
+         id: req.params.id,
+      },
+   })
+      .then((dbTagData) => {
+         if (!dbTagData) {
+            // client err
+            res.status(404).json({
+               message: "This Tag does not match any id!",
+            });
+            return;
+         }
+         res.json(dbTagData);
+      })
+      .catch((err) => {
+         console.log(err);
+         // server err
+         res.status(500).json(err);
+      });
 });
 
 module.exports = router;
