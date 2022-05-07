@@ -44,7 +44,7 @@ router.get("/:id", (req, res) => {
          if (!dbTagData) {
             // client error
             res.status(404).json({
-               message: "This Tag does not match and id!",
+               message: "This Tag does not match any id!",
             });
             return;
          }
@@ -72,6 +72,24 @@ router.post("/", (req, res) => {
 
 router.put("/:id", (req, res) => {
    // update a tag's name by its `id` value
+   Tag.update(req.body, {
+      where: {
+         id: req.params.id,
+      },
+   })
+      .then((dbTagData) => {
+         if (!dbTagData[0]) {
+            res.status(404).json({
+               message: "This Tag does not match any id!",
+            });
+            return;
+         }
+         res.json(dbTagData);
+      })
+      .catch((err) => {
+         console.log(err);
+         res.status(500).json(err);
+      });
 });
 
 router.delete("/:id", (req, res) => {
