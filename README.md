@@ -111,4 +111,9 @@ Run `npm run seed` to seed data to your database so that you can test your route
 
 Created the code needed in `server.js` to sync the Sequelize models to the MySQL database on server start.
 
+## Reach out to me
 
+- Patrick Ciongoli
+- patrick.ciongoli@gmail.com
+
+Thanks for viewing!
